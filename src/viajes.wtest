@@ -1,0 +1,70 @@
+import viajes.*
+import socios.*
+
+describe "Viajes"{
+	
+	test "Una excursión a ciudad normal (no tropical) en la que se visitan 4 atracciones, lleva 2 días, no implica esfuerzo, y no sirve para broncearse"{
+		const ec1 = new ExcursionCiudad(cantAtracciones=4)
+		assert.equals(2,ec1.cantDias())
+		assert.notThat(ec1.implicaEsfuerzo())
+		assert.notThat(ec1.sirveParaBroncearse())
+	}
+	
+	test "Una excursión a ciudad tropical en la que se visitan 4 atracciones, lleva 3 días, no implica esfuerzo, y sí sirve para broncearse"{
+		const ect1 = new ExcursionCuidadTropical(cantAtracciones=4)
+		assert.equals(3,ect1.cantDias())
+		assert.notThat(ect1.implicaEsfuerzo())
+		assert.that(ect1.sirveParaBroncearse())
+	}
+	
+	test "Una excursión a ciudad normal (no tropical) en la que se visitan 8 atracciones, lleva 4 días, implica esfuerzo, y no sirve para broncearse"{
+		const ec1 = new ExcursionCiudad(cantAtracciones=8)
+		assert.equals(4,ec1.cantDias())
+		assert.that(ec1.implicaEsfuerzo())
+		assert.notThat(ec1.sirveParaBroncearse())
+	}
+	
+	test "Una excursión a ciudad tropical en la que se visitan 8 atracciones, lleva 5 días, implica esfuerzo, y sirve para broncearse"{
+		const ect1 = new ExcursionCuidadTropical(cantAtracciones=8)
+		assert.equals(5,ect1.cantDias())
+		assert.that(ect1.implicaEsfuerzo())
+		assert.that(ect1.sirveParaBroncearse())
+	}
+	
+	test "Una excursión a ciudad tropical en la que se visitan 10 atracciones, lleva 6 días, no implica esfuerzo, y sí sirve para broncearse"{
+		const ect1 = new ExcursionCuidadTropical(cantAtracciones=10)
+		assert.equals(6,ect1.cantDias())
+		assert.notThat(ect1.implicaEsfuerzo())
+		assert.that(ect1.sirveParaBroncearse())
+	}
+}
+
+describe "Socios"{
+
+		const roque= new Socio(maxCantAct=2,edad=30)
+		const ana= new Socio(maxCantAct=3,edad=30)
+		const vp1= new Playa(largo=1000)
+		const vp2= new Playa(largo=2000)
+	//	const gym= new ClasesDeGym()
+	
+	method initializa(){
+		roque.realizarActividad(vp1)
+		roque.realizarActividad(vp2)
+		ana.realizarActividad(vp1)
+		ana.realizarActividad(vp2)		
+	} 
+	
+	test "Roque, un socio que hizo 2 viajes a la playa, con longitudes de 1000 y 2000 metros respectivamente, y que tiene un máximo de 2 actividades"{
+		assert.that(roque.esAdoradorDeSol())
+		assert.equals([],roque.actEsforzadas())
+	}
+	
+	test "Ana, una socia que hizo 2 viajes a la playa, con longitudes de 1000 y 2000 metros respectivamente, y que tiene un máximo de 3 actividades"{
+		assert.that(ana.esAdoradorDeSol())
+		assert.equals([],ana.actEsforzadas())
+	}
+	
+	
+	
+
+}
